@@ -24,11 +24,6 @@ spec:
           value: $(params.repository)
         - name: REVISION
           value: $(params.revision)
-         - name: ORGNAME
-          valueFrom:
-            secretKeyRef:
-              name: $(params.continuous-delivery-context-secret)
-              key: ORGNAME
         - name: GIT_TOKEN
           valueFrom:
             secretKeyRef:
@@ -49,10 +44,7 @@ spec:
         - name: REVISION
           value: $(params.revision)
          - name: ORGNAME
-          valueFrom:
-            secretKeyRef:
-              name: $(params.continuous-delivery-context-secret)
-              key: ORGNAME
+           value: $(params.orgname)             
         - name: GIT_TOKEN
           valueFrom:
             secretKeyRef:
