@@ -1,0 +1,71 @@
+apiVersion: tekton.dev/v1beta1
+kind: Task
+metadata:
+  name: branch-task
+spec:
+  params:
+    - name: repository
+      description: the git repository
+    - name: revision
+      description: the git repo branch 
+    - name: orgname
+      description: organisation name
+    - name: continuous-delivery-context-secret
+      description: name of the configmap containing the continuous delivery pipeline context secrets
+      default: cd-secret
+  workspaces:
+    - name: task-pvc
+      mountPath: /artifacts  
+  steps:
+    - name: clone-repo
+      image: alpine/git
+      env:
+        - name: REPOSITORY
+          value: $(params.repository)
+        - name: REVISION
+          value: $(params.revision)
+         - name: orgname
+          valueFrom:
+            secretKeyRef:
+              name: $(params.continuous-delivery-context-secret)
+              key: orgname
+        - name: GIT_TOKEN
+          valueFrom:
+            secretKeyRef:
+              name: $(params.continuous-delivery-context-secret)
+              key: GIT_TOKEN
+      command: ["/bin/sh", "-c"]
+      args:
+        - set -e -o pipefail;
+          url="https://$GIT_TOKEN@github.com/siriguppa/svs1.git" ;
+           echo "Cloning $REPOSITORY";
+           cd /workspace && git clone -q $url .;
+
+    - name: get-sos-data
+      image: python:3.7-alpine  #icr.io/continuous-delivery/pipeline/pipeline-base-image:latest
+      env:
+        - name: REPOSITORY
+          value: $(params.repository)
+        - name: REVISION
+          value: $(params.revision)
+         - name: orgname
+          valueFrom:
+            secretKeyRef:
+              name: $(params.continuous-delivery-context-secret)
+              key: orgname
+        - name: GIT_TOKEN
+          valueFrom:
+            secretKeyRef:
+              name: $(params.continuous-delivery-context-secret)
+              key: GIT_TOKEN
+      command: ["/bin/bash", "-c"]
+      args:
+        - set -e -o pipefail;
+          cd /workspace;
+          echo "staring install";
+          apt-get -y update;
+          apt-get -y install python3;
+          apt-get -y install python3-pip;
+          pip3 install --no-cache-dir pygithub;
+          python3 24.py;
+      
