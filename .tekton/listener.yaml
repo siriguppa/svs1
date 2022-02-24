@@ -10,7 +10,7 @@ spec:
       description: the git repo branch 
     - name: access-token
       description: the access-token
-    - name: org-name
+    - name: orgname
       description: organisation name
     
   resourcetemplates:
@@ -22,7 +22,6 @@ spec:
       type: Opaque
       stringData:
         GIT_TOKEN: $(params.access-token)
-        ORGNAME: $(params.org-name)
     - apiVersion: v1
       kind: PersistentVolumeClaim
       metadata:
@@ -46,6 +45,8 @@ spec:
           value: $(params.repository) 
         - name: revision  
           value: $(params.revision) 
+        - name: orgname  
+          value: $(params.orgname) 
         workspaces:
           - name: pipeline-pvc
             persistentVolumeClaim:
