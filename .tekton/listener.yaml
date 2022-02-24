@@ -22,7 +22,7 @@ spec:
       type: Opaque
       stringData:
         GIT_TOKEN: $(params.access-token)
-        orgname: $(params.org-name)
+        ORGNAME: $(params.org-name)
     - apiVersion: v1
       kind: PersistentVolumeClaim
       metadata:
