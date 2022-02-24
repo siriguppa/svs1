@@ -43,8 +43,8 @@ spec:
           value: $(params.repository)
         - name: REVISION
           value: $(params.revision)
-         - name: ORGNAME
-           value: $(params.orgname)             
+        - name: ORGNAME
+          value: $(params.orgname)             
         - name: GIT_TOKEN
           valueFrom:
             secretKeyRef:
