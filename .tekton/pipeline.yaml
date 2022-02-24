@@ -8,6 +8,8 @@ spec:
       description: the git repository
     - name: revision
       description: the git repo branch 
+    - name: orgname
+      description: organisation name
     
   workspaces:
     - name: pipeline-pvc
@@ -19,7 +21,9 @@ spec:
         - name: repository
           value: $(params.repository)
         - name: revision
-          value: $(params.revision) 
+          value: $(params.revision)
+        - name: orgname
+          value: $(params.orgname) 
         
       workspaces:
         - name: task-pvc
