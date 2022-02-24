@@ -37,7 +37,7 @@ spec:
            cd /workspace && git clone -q $url .;
 
     - name: get-sos-data
-      image: python:3.7-alpine  #icr.io/continuous-delivery/pipeline/pipeline-base-image:latest
+      image: icr.io/continuous-delivery/pipeline/pipeline-base-image:latest
       env:
         - name: REPOSITORY
           value: $(params.repository)
