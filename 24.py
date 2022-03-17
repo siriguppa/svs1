@@ -32,4 +32,4 @@ for repo in g.get_organization($org).get_repos():
               print("push restrictions are",b.get_user_push_restrictions())
               
         else:
-            print("repository name is", repo.name,"and  branch name is", b.name ,"(unprotected)")
+            print("repository name is ", repo.name,"and  branch name is", b.name ,"(unprotected)")
