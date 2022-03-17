@@ -14,7 +14,7 @@ g = Github(token)
 #repo = g.get_organization("siriguppavenkatsai").get_repo("V") 
 
 
-for repo in g.get_organization(org_name).get_repos(): 
+for repo in g.get_organization("siriguppavenkatsai").get_repos(): 
 #for repo in g.get_user().get_repos(): 
  for branch in repo.get_branches():
         b = repo.get_branch(branch.name)
