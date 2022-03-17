@@ -3,7 +3,7 @@ from github import Github
 
 #access_token = input( "enter acess token")
 token = os.environ.get("GIT_TOKEN")
-org_name = os.environ.get("ORGNAME")
+#org_name = os.environ.get("ORGNAME")
 #g = Github(access_token)
 g = Github(token)
 
